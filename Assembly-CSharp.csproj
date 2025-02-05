@@ -65,12 +65,17 @@
     <Analyzer Include="/home/leo/Unity/Hub/Editor/6000.0.34f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Scripts/spell/ShieldSpell.cs" />
+    <Compile Include="Assets/Scripts/spell/FireSpell.cs" />
     <Compile Include="Assets/Scripts/player/Player.cs" />
+    <Compile Include="Assets/Scripts/mob/EnemyHealth.cs" />
     <Compile Include="Assets/Scripts/mob/MobStrong.cs" />
     <Compile Include="Assets/Scripts/player/PlayerWar.cs" />
     <Compile Include="Assets/Scripts/mob/MobBase.cs" />
+    <Compile Include="Assets/Scripts/spell/IceSpell.cs" />
     <Compile Include="Assets/Scripts/mob/Boss.cs" />
     <Compile Include="Assets/Scripts/player/PlayerMage.cs" />
+    <Compile Include="Assets/Scripts/spell/PhysicSpell.cs" />
     <Compile Include="Assets/Scripts/player/PlayerRogue.cs" />
   </ItemGroup>
   <ItemGroup>
