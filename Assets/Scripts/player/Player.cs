@@ -1,16 +1,27 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject magePrefab;
+    public GameObject warriorPrefab;
+
+    private GameObject currentPlayer;
+
     void Start()
     {
-        
+        SelectClass();
     }
 
-    // Update is called once per frame
-    void Update()
+    void SelectClass()
     {
-        
+        if (PlayerPrefs.GetString("SelectedClass") == "Mage")
+        {
+            currentPlayer = Instantiate(magePrefab, transform.position, transform.rotation);
+        }
+        else
+        {
+            currentPlayer = Instantiate(warriorPrefab, transform.position, transform.rotation);
+        }
     }
 }

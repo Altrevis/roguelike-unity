@@ -71,13 +71,15 @@
     <Compile Include="Assets/Scripts/player/Player.cs" />
     <Compile Include="Assets/Scripts/mob/EnemyHealth.cs" />
     <Compile Include="Assets/Scripts/mob/MobStrong.cs" />
+    <Compile Include="Assets/Scripts/player/ClassSelection.cs" />
+    <Compile Include="Assets/Scripts/player/PlayerMovement.cs" />
     <Compile Include="Assets/Scripts/player/PlayerWar.cs" />
     <Compile Include="Assets/Scripts/mob/EnemyMovement.cs" />
+    <Compile Include="Assets/Scripts/player/PlayerHealth.cs" />
     <Compile Include="Assets/Scripts/mob/MobBase.cs" />
     <Compile Include="Assets/Scripts/spell/IceSpell.cs" />
     <Compile Include="Assets/Scripts/mob/Boss.cs" />
     <Compile Include="Assets/Scripts/player/PlayerMage.cs" />
-    <Compile Include="Assets/Scripts/player/PlayerRogue.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

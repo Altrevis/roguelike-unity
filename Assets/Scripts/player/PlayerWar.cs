@@ -2,15 +2,25 @@ using UnityEngine;
 
 public class PlayerWar : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public float attackRange = 2f;
+    public int attackDamage = 20;
+    public LayerMask enemyLayer;
 
-    // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))  // Clique gauche pour attaquer
+        {
+            Attack();
+        }
+    }
+
+    void Attack()
+    {
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
         
+        foreach (Collider enemy in hitEnemies)
+        {
+            enemy.GetComponent<EnemyHealth>()?.TakeDamage(attackDamage);
+        }
     }
 }
