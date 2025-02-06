@@ -30,6 +30,11 @@ public class IceSpell : MonoBehaviour
             {
                 enemyHealth.TakeDamage(damage);
             }
+            EnemyMovement enemyMove = enemy.GetComponent<EnemyMovement>();
+            if (enemyMove != null)
+            {
+                StartCoroutine(enemyMove.ApplySlow(slowFactor, slowDuration));
+            }
         }
 
         if (iceEffect != null)
