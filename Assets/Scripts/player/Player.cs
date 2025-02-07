@@ -8,11 +8,19 @@ public class Player : MonoBehaviour
     private bool isGrounded = false;
 
     private Rigidbody2D rb;
+    private Animator anim;
     private SpriteRenderer sprite;
+
+    private States State
+{
+    get { return (States)anim.GetInteger("state"); }
+    set { anim.SetInteger("state", (int)value); }
+}
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
     }
     
@@ -23,7 +31,11 @@ public class Player : MonoBehaviour
 
     private void Update()
 {
-    if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
+    if (isGrounded && !Input.GetButton("Horizontal") && !Input.GetButton("Vertical"))
+    {
+        State = States.idle;
+    }
+    else if (Input.GetButton("Horizontal") || Input.GetButton("Vertical"))
     {
         Run();
     }
@@ -31,6 +43,7 @@ public class Player : MonoBehaviour
 
     private void Run()
 {
+    State = States.Run;
     Vector3 dir = Vector3.zero;
 
     if (Input.GetKey(KeyCode.W))
@@ -50,11 +63,17 @@ public class Player : MonoBehaviour
         dir += Vector3.right;
     }
 
-    dir = dir.normalized;
+    if (dir != Vector3.zero)
+    {
+        dir = dir.normalized;
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, speed * Time.deltaTime);
+        sprite.flipX = dir.x < 0.0f;
+    }
+    else
+    {
 
-    transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, speed * Time.deltaTime);
-
-    sprite.flipX = dir.x < 0.0f;
+        State = States.idle;
+    }
 }
 
 
@@ -63,4 +82,9 @@ public class Player : MonoBehaviour
         Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 0.3f);
         isGrounded = collider.Length > 1;
     }
+}
+
+public enum States
+{
+    idle,Run
 }
