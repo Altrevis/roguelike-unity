@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 
     private void Update()
 {
-    if (isGrounded && !Input.GetButton("Horizontal") && !Input.GetButton("Vertical"))
+    if (!Input.GetButton("Horizontal") && !Input.GetButton("Vertical"))
     {
         State = States.idle;
     }
