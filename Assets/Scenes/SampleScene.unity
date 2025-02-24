@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2d6bef568d6550289b96be8f7b2a457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1598014057}
   maxHealth: 500
   speed: 3
   attackRange: 5
@@ -1281,17 +1281,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - waveName: 
-    enemyGroups: []
+    enemyGroups:
+    - enemyName: mob
+      enemyCount: 5
+      spawnCount: 0
+      enemyPrefab: {fileID: 1973500837}
     waveQuota: 0
-    spawnInterval: 0
-    spawnCount: 0
-  currentWaveCount: 0
+    spawnInterval: 1
+    spawnCount: 2
+  currentWaveCount: 1
   enemiesAlive: 0
-  maxEnemiesAllowed: 0
+  maxEnemiesAllowed: 5
   maxEnemiesReached: 0
-  waveInteval: 0
+  waveInteval: 3
   relativeSpawnPoints:
+  - {fileID: 0}
   - {fileID: 1960021934}
+  - {fileID: 693862257}
+  - {fileID: 800414880}
+  - {fileID: 497665356}
+  - {fileID: 1238982685}
+  - {fileID: 1373304408}
 --- !u!4 &1212833143
 Transform:
   m_ObjectHideFlags: 0
@@ -1788,7 +1798,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 110
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1815,7 +1825,7 @@ Transform:
   m_GameObject: {fileID: 1774678285}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.6, y: -1.07, z: -10}
+  m_LocalPosition: {x: -0.016509766, y: -0.027668187, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2073,7 +2083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa637ab6b848514f8541cec78d5f4ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1598014057}
   maxHealth: 50
   speed: 2
   attackRange: 1.5

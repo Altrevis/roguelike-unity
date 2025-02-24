@@ -50,22 +50,22 @@ public class MobBase : MonoBehaviour
 
     void CheckForBuff()
     {
-        Collider[] nearbyDemons = Physics.OverlapSphere(transform.position, buffRange);
-        int demonCount = 0;
+        Collider[] nearbyDragons = Physics.OverlapSphere(transform.position, buffRange);
+        int dragonCount = 0;
 
-        foreach (Collider collider in nearbyDemons)
+        foreach (Collider collider in nearbyDragons)
         {
-            if (collider.CompareTag("Demon"))
+            if (collider.CompareTag("Dragon"))
             {
-                demonCount++;
+                dragonCount++;
             }
         }
 
-        if (demonCount >= 3 && !isBuffed)
+        if (dragonCount >= 3 && !isBuffed)
         {
             ActivateBuff();
         }
-        else if (demonCount < 3 && isBuffed)
+        else if (dragonCount < 3 && isBuffed)
         {
             DeactivateBuff();
         }
@@ -106,7 +106,7 @@ public class MobBase : MonoBehaviour
 
     void Attack()
     {
-        Debug.Log("👹 " + gameObject.name + " attaque avec ses griffes !");
+        Debug.Log("Dragon " + gameObject.name + " attaque avec ses griffes !");
         player.GetComponent<PlayerHealth>().TakeDamage(baseDamage);
     }
 
@@ -125,5 +125,11 @@ public class MobBase : MonoBehaviour
     {
         Debug.Log("💀 " + gameObject.name + " est mort !");
         Destroy(gameObject);
+    }
+
+    private void Oestroy()
+    {
+        EnemySpawner es = FindObjectOfType<EnemySpawner>();
+        es.OneEnemyKilled();
     }
 }

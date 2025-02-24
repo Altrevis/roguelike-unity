@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyMovement : MonoBehaviour
 {
     public float moveSpeed = 3f;
-    public float detectionRange = 5f; // Rayon d'aggro
+    public float detectionRange = 1f; // Rayon d'aggro
     private Vector3 targetPosition;
     private Transform player;
     private bool isAggro = false;
