@@ -71,7 +71,6 @@
     <Compile Include="Assets/Scripts/Camera.cs" />
     <Compile Include="Assets/Scripts/player/Player.cs" />
     <Compile Include="Assets/Scripts/mob/EnemyHealth.cs" />
-    <Compile Include="Assets/Scripts/mob/MobStrong.cs" />
     <Compile Include="Assets/Scripts/player/ClassSelection.cs" />
     <Compile Include="Assets/Scripts/player/PlayerMovement.cs" />
     <Compile Include="Assets/Scripts/player/PlayerWar.cs" />
