@@ -1,116 +1,57 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [System.Serializable]
+    [Header("⚔️ Paramètres de Spawn")]
+    public GameObject enemyPrefab; // Associe ton prefab MobBase ici
+    public List<Transform> spawnPoints; // Liste des positions de spawn
+    public int enemiesPerWave = 5; // Nombre d'ennemis par vague
+    public float timeBetweenSpawns = 1.5f; // Délai entre chaque spawn
+    public float timeBetweenWaves = 5f; // Délai entre chaque vague
 
-    public class Wave
-    {
-        public string waveName;
-        public List<EnemyGroup> enemyGroups; 
-        public int waveQuota;
-        public float spawnInterval;
-        public int spawnCount;
-    }
-
-    [System.Serializable]
-
-    public class EnemyGroup
-    {
-        public string enemyName;
-        public int enemyCount;
-        public int spawnCount;
-        public GameObject enemyPrefab;
-    }
-
-    public List<Wave> waves;
-    public int currentWaveCount;
-
-    [Header("Spawner Attributes")]
-    float spawnTimer;
-    public int enemiesAlive;
-    public int maxEnemiesAllowed;
-    public bool maxEnemiesReached = false;
-    public float waveInteval;
-
-    [Header("Spaner Position")]
-    public List<Transform> relativeSpawnPoints;
-
-    Transform player;
-
+    private int waveNumber = 0;
+    
     void Start()
     {
-      player = FindObjectOfType<Player>().transform;
-      CalculateWaveCount();
+        if (enemyPrefab == null)
+        {
+            Debug.LogError("❌ Aucun prefab d'ennemi assigné !");
+            return;
+        }
+
+        if (spawnPoints.Count == 0)
+        {
+            Debug.LogError("❌ Aucun point de spawn défini !");
+            return;
+        }
+
+        StartCoroutine(SpawnWaves());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator SpawnWaves()
     {
-        if(currentWaveCount < waves.Count && waves[currentWaveCount].spawnCount == 0)
+        while (true)
         {
-            StartCoroutine(BeginNextWave());
-        }
-        spawnTimer += Time.deltaTime;
-        if (spawnTimer >= waves[currentWaveCount].spawnInterval)
-        {
-            spawnTimer = 0f;
-            SpawnEnemies();
-        }
-    }
+            waveNumber++;
+            Debug.Log("🌊 Début de la vague " + waveNumber);
 
-    IEnumerator BeginNextWave()
-    {
-        yield return new WaitForSeconds(waveInteval);
-        if(currentWaveCount < waves.Count - 1)
-        {
-            currentWaveCount++;
-            CalculateWaveCount();
-        }
-    }
-    void CalculateWaveCount()
-    {
-        int currentWaveQuota = 0;
-        foreach (var enemyGroups in waves [currentWaveCount].enemyGroups)
-        {
-            currentWaveCount += enemyGroups.enemyCount;
-        }
-        waves[currentWaveCount].waveQuota = currentWaveCount;
-        Debug.LogWarning(currentWaveQuota);
-    }
-
-    void SpawnEnemies()
-    {
-        if(waves[currentWaveCount].spawnCount < waves[currentWaveCount].waveQuota && !maxEnemiesReached)
-        {
-            foreach (var enemyGroups in waves[currentWaveCount].enemyGroups)
+            for (int i = 0; i < enemiesPerWave; i++)
             {
-                if(enemyGroups.spawnCount < enemyGroups.enemyCount)
-                {
-                    if(enemiesAlive >= maxEnemiesAllowed)
-                    {
-                        maxEnemiesReached = true;
-                        return;
-                    }
-
-                    Instantiate(enemyGroups.enemyPrefab, player.position + relativeSpawnPoints[Random.Range(0, relativeSpawnPoints.Count)].position, Quaternion.identity);
-
-                    enemyGroups.spawnCount++;
-                    waves[currentWaveCount].spawnCount++;
-                    enemiesAlive++;
-                }
+                SpawnEnemy();
+                yield return new WaitForSeconds(timeBetweenSpawns);
             }
-        }
-        if(enemiesAlive < maxEnemiesAllowed)
-        {
-            maxEnemiesReached = false;
+
+            Debug.Log("⏳ Pause avant la prochaine vague...");
+            yield return new WaitForSeconds(timeBetweenWaves);
         }
     }
 
-    public void OneEnemyKilled()
+    void SpawnEnemy()
     {
-        enemiesAlive--;
+        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+        Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+        Debug.Log("✅ Ennemi spawné à " + spawnPoint.position);
     }
 }

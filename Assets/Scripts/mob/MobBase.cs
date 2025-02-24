@@ -126,10 +126,4 @@ public class MobBase : MonoBehaviour
         Debug.Log("💀 " + gameObject.name + " est mort !");
         Destroy(gameObject);
     }
-
-    private void Oestroy()
-    {
-        EnemySpawner es = FindObjectOfType<EnemySpawner>();
-        es.OneEnemyKilled();
-    }
 }
