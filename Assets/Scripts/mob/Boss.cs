@@ -3,20 +3,21 @@ using System.Collections;
 
 public class Boss : MonoBehaviour
 {
+    [Header("Boss Settings")]
     public Transform player;
     public int maxHealth = 500;
     private int currentHealth;
-    
+
+    [Header("Movement Settings")]
     public float speed = 3f;
     public float attackRange = 5f;
     public float chargeSpeed = 8f;
-    
-    public GameObject fireBreathPrefab;  // Effet de feu
-    public GameObject meteorPrefab;      // Météores
 
+    [Header("Attack Settings")]
+    public GameObject fireBreathPrefab;
+    public GameObject meteorPrefab;
     private bool isEnraged = false;
     private bool isAttacking = false;
-
     private Rigidbody rb;
 
     void Start()
@@ -37,7 +38,7 @@ public class Boss : MonoBehaviour
     void FollowPlayer()
     {
         float distance = Vector3.Distance(transform.position, player.position);
-
+        
         if (distance > attackRange)
         {
             Vector3 direction = (player.position - transform.position).normalized;
@@ -52,15 +53,21 @@ public class Boss : MonoBehaviour
         {
             yield return new WaitForSeconds(3f);
             isAttacking = true;
-
             int attackChoice = Random.Range(0, 3);
-            if (attackChoice == 0)
-                StartCoroutine(FireBreath());
-            else if (attackChoice == 1)
-                StartCoroutine(Charge());
-            else
-                StartCoroutine(SummonMeteors());
-
+            
+            switch (attackChoice)
+            {
+                case 0:
+                    yield return StartCoroutine(FireBreath());
+                    break;
+                case 1:
+                    yield return StartCoroutine(ChargeAttack());
+                    break;
+                case 2:
+                    yield return StartCoroutine(SummonMeteor());
+                    break;
+            }
+            
             yield return new WaitForSeconds(2f);
             isAttacking = false;
         }
@@ -73,25 +80,27 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(2f);
         Destroy(fire);
     }
-
-    IEnumerator Charge()
+    
+    IEnumerator ChargeAttack()
     {
-        Debug.Log("🐉 Le dragon charge !");
+        Debug.Log("⚡ Le dragon fonce sur sa cible !");
         Vector3 chargeDirection = (player.position - transform.position).normalized;
-        rb.AddForce(chargeDirection * chargeSpeed, ForceMode.Impulse);
-        yield return new WaitForSeconds(1f);
-        rb.linearVelocity = Vector3.zero;
-    }
+        float startTime = Time.time;
+        float chargeDuration = 1f;
 
-    IEnumerator SummonMeteors()
-    {
-        Debug.Log("☄️ Pluie de météores !");
-        for (int i = 0; i < 5; i++)
+        while (Time.time < startTime + chargeDuration)
         {
-            Vector3 randomOffset = new Vector3(Random.Range(-3f, 3f), 10f, Random.Range(-3f, 3f));
-            Instantiate(meteorPrefab, player.position + randomOffset, Quaternion.identity);
-            yield return new WaitForSeconds(0.5f);
+            transform.position += chargeDirection * chargeSpeed * Time.deltaTime;
+            yield return null;
         }
+    }
+    
+    IEnumerator SummonMeteor()
+    {
+        Debug.Log("☄️ Le dragon invoque une pluie de météores !");
+        Vector3 spawnPosition = player.position + new Vector3(Random.Range(-3f, 3f), 10f, Random.Range(-3f, 3f));
+        Instantiate(meteorPrefab, spawnPosition, Quaternion.identity);
+        yield return new WaitForSeconds(2f);
     }
 
     public void TakeDamage(int amount)
@@ -115,6 +124,7 @@ public class Boss : MonoBehaviour
         Debug.Log("🔥 Le dragon devient FURIEUX !");
         speed *= 1.5f;
         attackRange += 2f;
+        chargeSpeed *= 1.5f;
         isEnraged = true;
     }
 

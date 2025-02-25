@@ -15,11 +15,12 @@ public class EnemyHealth : MonoBehaviour
 
     // Dégâts instantanés (ex: foudre, glace, sort brut)
     public void TakeDamage(int amount)
-    {
-        currentHealth -= amount;
-        Debug.Log(gameObject.name + " touché ! Vie restante : " + currentHealth);
-        CheckDeath();
-    }
+{
+    Debug.Log(gameObject.name + " prend " + amount + " dégâts !");
+    currentHealth -= amount;
+    CheckDeath();
+}
+
 
     // Dégâts sur la durée (DOT)
     public void ApplyDot(int damagePerSecond, float duration)
