@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e6d216f8a445e1af9b0e78808e2202ae
+guid: 1ab2520bdc822a203afd283b8e13ea97
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6756608867095533957
-    second: rotationY15_0
+      213: 2306187886124440371
+    second: dragon0_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rotationY15_0
+      name: dragon0_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 27
-        width: 176
-        height: 153
+        y: 0
+        width: 174
+        height: 103
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 589db7177fb44cd50800000000000000
-      internalID: 6756608867095533957
+      spriteID: 33b91c9e9a9310020800000000000000
+      internalID: 2306187886124440371
       vertices: []
       indices: 
       edges: []
@@ -147,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      rotationY15_0: 6756608867095533957
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
