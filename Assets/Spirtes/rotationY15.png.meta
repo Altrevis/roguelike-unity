@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 884df3bf52d158ec690344cff9d22fda
+guid: e6d216f8a445e1af9b0e78808e2202ae
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2985188842684658570
-    second: minidaemon_0
+      213: 6756608867095533957
+    second: rotationY15_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: minidaemon_0
+      name: rotationY15_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 288
-        height: 256
+        y: 27
+        width: 176
+        height: 153
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a83bdabaf658d6920800000000000000
-      internalID: 2985188842684658570
+      spriteID: 589db7177fb44cd50800000000000000
+      internalID: 6756608867095533957
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      minidaemon_0: 2985188842684658570
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
