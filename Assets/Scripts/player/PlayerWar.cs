@@ -8,36 +8,31 @@ public class PlayerWar : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))  // Clique gauche pour attaquer
+        if (Input.GetKeyDown(KeyCode.Space))  // Appuyer sur la touche espace pour attaquer
         {
             Attack();
         }
     }
 
     void Attack()
-{
-    Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
-
-    Debug.Log("Nombre d'ennemis détectés : " + hitEnemies.Length);
-
-    foreach (Collider2D enemy in hitEnemies)
     {
-        Debug.Log("Ennemi touché : " + enemy.gameObject.name);
-        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+        Collider[] hitEnemies = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
 
-        if (enemyHealth != null && !enemyHealth.isDead)
+        Debug.Log("Nombre d'ennemis détectés : " + hitEnemies.Length);
+
+        foreach (Collider enemy in hitEnemies)
         {
-            int damageDealt = enemyHealth.TakeDamage(attackDamage);
-            Debug.Log("Dégâts infligés à : " + enemy.gameObject.name + " (" + damageDealt + " dégâts)");
-            Debug.Log("Santé actuelle de l'ennemi : " + enemyHealth.currentHealth);
-        }
-        else
-        {
-            Debug.LogWarning(enemy.gameObject.name + " n'a pas de script EnemyHealth !");
+            if (enemy.gameObject.CompareTag("Enemy")) // Vérifie si l'objet détecté est un ennemi
+            {
+                MobBase mobBase = enemy.GetComponent<MobBase>();
+
+                if (mobBase != null)
+                {
+                    mobBase.TakeDamage(attackDamage);
+                }
+            }
         }
     }
-}
-
 
     // Juste pour voir la zone d'attaque dans l'éditeur
     private void OnDrawGizmosSelected()
