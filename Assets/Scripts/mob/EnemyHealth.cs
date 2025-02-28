@@ -3,22 +3,26 @@ using System.Collections;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
-    private int currentHealth;
+
+
+    public LayerMask enemyLayer;
+    public int currentHealth = 100;
     private bool isTakingDot = false; // Empêche plusieurs DOT en même temps
     private bool isKnockedBack = false; // Empêche plusieurs coups de bouclier simultanés
 
+    public bool isDead = false;
     void Start()
     {
-        currentHealth = maxHealth;
+        gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(enemyLayer));
     }
 
     // Dégâts instantanés (ex: foudre, glace, sort brut)
-    public void TakeDamage(int amount)
+    public int TakeDamage(int amount)
 {
     Debug.Log(gameObject.name + " prend " + amount + " dégâts !");
     currentHealth -= amount;
     CheckDeath();
+    return amount;
 }
 
 
@@ -76,10 +80,10 @@ public class EnemyHealth : MonoBehaviour
             Die();
         }
     }
-
     void Die()
-    {
-        Debug.Log(gameObject.name + " est mort !");
-        Destroy(gameObject);
-    }
+{
+    Debug.Log(gameObject.name + " est mort !");
+    isDead = true;
+    GetComponent<Collider2D>().enabled = false; // Disable the collider to prevent further interactions
+}
 }

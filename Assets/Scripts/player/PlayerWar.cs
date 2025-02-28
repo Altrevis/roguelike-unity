@@ -25,10 +25,11 @@ public class PlayerWar : MonoBehaviour
         Debug.Log("Ennemi touché : " + enemy.gameObject.name);
         EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
 
-        if (enemyHealth != null)
+        if (enemyHealth != null && !enemyHealth.isDead)
         {
-            enemyHealth.TakeDamage(attackDamage);
-            Debug.Log("Dégâts infligés à : " + enemy.gameObject.name);
+            int damageDealt = enemyHealth.TakeDamage(attackDamage);
+            Debug.Log("Dégâts infligés à : " + enemy.gameObject.name + " (" + damageDealt + " dégâts)");
+            Debug.Log("Santé actuelle de l'ennemi : " + enemyHealth.currentHealth);
         }
         else
         {

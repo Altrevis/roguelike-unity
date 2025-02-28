@@ -10,7 +10,6 @@ public class Boss : MonoBehaviour
 
     [Header("Movement Settings")]
     public float speed = 3f;
-    public float attackRange = 5f;
     public float chargeSpeed = 8f;
 
     [Header("Attack Settings")]
@@ -18,6 +17,8 @@ public class Boss : MonoBehaviour
     public GameObject meteorPrefab;
     private bool isEnraged = false;
     private bool isAttacking = false;
+    public float attackRange = 5f;
+    public int baseDamage = 20;
     private Rigidbody rb;
 
     void Start()
@@ -45,33 +46,26 @@ public class Boss : MonoBehaviour
             transform.position += direction * speed * Time.deltaTime;
         }
     }
-
+void Attack()
+{
+    Debug.Log("Le boss attaque avec ses griffes !");
+    player.GetComponent<PlayerHealth>().TakeDamage(baseDamage);
+}
     IEnumerator AttackLoop()
+{
+    while (currentHealth > 0)
     {
-        while (currentHealth > 0)
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (distance <= attackRange)
         {
-            yield return new WaitForSeconds(3f);
             isAttacking = true;
-            int attackChoice = Random.Range(0, 3);
-            
-            switch (attackChoice)
-            {
-                case 0:
-                    yield return StartCoroutine(FireBreath());
-                    break;
-                case 1:
-                    yield return StartCoroutine(ChargeAttack());
-                    break;
-                case 2:
-                    yield return StartCoroutine(SummonMeteor());
-                    break;
-            }
-            
-            yield return new WaitForSeconds(2f);
+            Attack();
+            yield return new WaitForSeconds(1.5f);
             isAttacking = false;
         }
+        yield return null;
     }
-
+}
     IEnumerator FireBreath()
     {
         Debug.Log("🔥 Le dragon crache du feu !");
