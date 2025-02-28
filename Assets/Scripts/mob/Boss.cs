@@ -43,7 +43,6 @@ public class Boss : MonoBehaviour
         {
             Vector3 direction = (player.position - transform.position).normalized;
             transform.position += direction * speed * Time.deltaTime;
-            transform.LookAt(player);
         }
     }
 

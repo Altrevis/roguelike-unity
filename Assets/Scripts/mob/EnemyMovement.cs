@@ -36,7 +36,6 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector3 direction = (targetPosition - transform.position).normalized;
         transform.position += direction * moveSpeed * Time.deltaTime;
-        transform.LookAt(targetPosition);
     }
 
     IEnumerator ChangeDirection()
