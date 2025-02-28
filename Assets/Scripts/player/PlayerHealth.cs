@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public int health = 100;
@@ -15,7 +15,8 @@ public class PlayerHealth : MonoBehaviour
     }
 
     void Die()
-    {
-        Debug.Log("💀 Le joueur est mort !");
-    }
+{
+    Debug.Log("💀 Le joueur est mort !");
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+}
 }
