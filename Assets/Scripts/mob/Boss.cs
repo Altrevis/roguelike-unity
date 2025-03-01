@@ -109,6 +109,16 @@ void Attack()
         {
             Enrage();
         }
+        else if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("💀 " + gameObject.name + " est vaincue !");
+        Destroy(gameObject);
     }
 
     void Enrage()

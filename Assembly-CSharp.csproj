@@ -73,7 +73,6 @@
     <Compile Include="Assets/Scripts/player/PlayerAttack.cs" />
     <Compile Include="Assets/Scripts/mob/EnemyHealth.cs" />
     <Compile Include="Assets/Scripts/player/PlayerMovement.cs" />
-    <Compile Include="Assets/Scripts/player/PlayerWar.cs" />
     <Compile Include="Assets/Scripts/mob/EnemyMovement.cs" />
     <Compile Include="Assets/Scripts/player/PlayerHealth.cs" />
     <Compile Include="Assets/Scripts/mob/MobBase.cs" />

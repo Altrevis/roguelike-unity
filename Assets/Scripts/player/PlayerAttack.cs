@@ -20,10 +20,19 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (Collider2D enemy in hitEnemies)
         {
-            if (enemy.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth))
-            {
-                enemyHealth.TakeDamage(attackDamage);
-            }
+            MobBase mobBase = enemy.GetComponent<MobBase>();
+                Boss boss = enemy.GetComponent<Boss>();
+
+                if (mobBase != null)
+                {
+                    Debug.Log("Xmob prend des dégât");
+                    mobBase.TakeDamage(attackDamage);
+                }
+                else if (boss != null)
+                {
+                    Debug.Log("Yboss prend des dégât");
+                    boss.TakeDamage(attackDamage);
+                }
         }
     }
 
