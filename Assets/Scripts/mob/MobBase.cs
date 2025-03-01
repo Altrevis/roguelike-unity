@@ -107,7 +107,10 @@ public class MobBase : MonoBehaviour
     void Attack()
     {
         Debug.Log("Dragon " + gameObject.name + " attaque avec ses griffes !");
-        player.GetComponent<PlayerHealth>().TakeDamage(baseDamage);
+        if (player.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+        {
+            playerHealth.TakeDamage(baseDamage);
+        }
     }
 
     public void TakeDamage(int amount)

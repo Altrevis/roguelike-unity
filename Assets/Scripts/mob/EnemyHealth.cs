@@ -3,30 +3,32 @@ using System.Collections;
 
 public class EnemyHealth : MonoBehaviour
 {
-
-
     public LayerMask enemyLayer;
     public int currentHealth = 100;
-    private bool isTakingDot = false; // Empêche plusieurs DOT en même temps
-    private bool isKnockedBack = false; // Empêche plusieurs coups de bouclier simultanés
-
+    private bool isTakingDot = false;
+    private bool isKnockedBack = false;
     public bool isDead = false;
+
     void Start()
     {
-        gameObject.layer = LayerMask.NameToLayer(LayerMask.LayerToName(enemyLayer));
+        if (enemyLayer.value == 0)
+        {
+            Debug.LogError(gameObject.name + " : Aucun layer d'ennemi assigné !");
+        }
+        else
+        {
+            gameObject.layer = Mathf.RoundToInt(Mathf.Log(enemyLayer.value, 2));
+        }
     }
 
-    // Dégâts instantanés (ex: foudre, glace, sort brut)
     public int TakeDamage(int amount)
-{
-    Debug.Log(gameObject.name + " prend " + amount + " dégâts !");
-    currentHealth -= amount;
-    CheckDeath();
-    return amount;
-}
+    {
+        Debug.Log(gameObject.name + " prend " + amount + " dégâts !");
+        currentHealth -= amount;
+        CheckDeath();
+        return amount;
+    }
 
-
-    // Dégâts sur la durée (DOT)
     public void ApplyDot(int damagePerSecond, float duration)
     {
         if (!isTakingDot)
@@ -43,14 +45,13 @@ public class EnemyHealth : MonoBehaviour
         while (elapsed < duration)
         {
             TakeDamage(damagePerSecond);
-            yield return new WaitForSeconds(1f); // Applique les dégâts chaque seconde
+            yield return new WaitForSeconds(1f);
             elapsed += 1f;
         }
 
         isTakingDot = false;
     }
 
-    // Effet de recul pour le ShieldSpell (coup de bouclier)
     public void KnockBack(Vector3 force, float duration)
     {
         if (!isKnockedBack)
@@ -80,10 +81,24 @@ public class EnemyHealth : MonoBehaviour
             Die();
         }
     }
+
     void Die()
 {
     Debug.Log(gameObject.name + " est mort !");
     isDead = true;
-    GetComponent<Collider2D>().enabled = false; // Disable the collider to prevent further interactions
+
+    // Vérifie si un Collider est attaché avant de le désactiver
+    Collider collider = GetComponent<Collider>();
+    if (collider != null)
+    {
+        collider.enabled = false;
+    }
+    else
+    {
+        Debug.LogWarning(gameObject.name + " n'a pas de Collider attaché !");
+    }
+
+    Destroy(gameObject); // Détruit l'objet après la mort
 }
+
 }

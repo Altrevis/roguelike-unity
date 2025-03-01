@@ -49,8 +49,12 @@ public class Boss : MonoBehaviour
 void Attack()
 {
     Debug.Log("Le boss attaque avec ses griffes !");
-    player.GetComponent<PlayerHealth>().TakeDamage(baseDamage);
+    if (player.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+    {
+        playerHealth.TakeDamage(baseDamage);
+    }
 }
+
     IEnumerator AttackLoop()
 {
     while (currentHealth > 0)
@@ -105,11 +109,6 @@ void Attack()
         {
             Enrage();
         }
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
     }
 
     void Enrage()
@@ -119,11 +118,5 @@ void Attack()
         attackRange += 2f;
         chargeSpeed *= 1.5f;
         isEnraged = true;
-    }
-
-    void Die()
-    {
-        Debug.Log("💀 Le dragon est vaincu !");
-        Destroy(gameObject);
     }
 }

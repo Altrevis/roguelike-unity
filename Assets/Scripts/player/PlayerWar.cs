@@ -25,10 +25,15 @@ public class PlayerWar : MonoBehaviour
             if (enemy.gameObject.CompareTag("Enemy")) // Vérifie si l'objet détecté est un ennemi
             {
                 MobBase mobBase = enemy.GetComponent<MobBase>();
+                Boss boss = enemy.GetComponent<Boss>();
 
                 if (mobBase != null)
                 {
                     mobBase.TakeDamage(attackDamage);
+                }
+                else if (boss != null)
+                {
+                    boss.TakeDamage(attackDamage);
                 }
             }
         }
